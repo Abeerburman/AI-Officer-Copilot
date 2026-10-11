@@ -23,41 +23,7 @@ A full-screen, hands-free voice mode (in the spirit of Gemini Live / ChatGPT voi
 - **Browser support:** speech-to-text needs `SpeechRecognition`/`webkitSpeechRecognition` (Chrome, Edge, Safari — not currently supported in Firefox desktop); the mic button is disabled with an explanatory tooltip where unsupported. Text-to-speech needs `speechSynthesis`, supported in effectively all modern browsers.
 - No audio ever leaves the browser; voice mode reuses the same chat/socket pipeline as typed messages, so it doesn't change how `LLM_API_URL`/`LLM_API_KEY` are used on the backend.
 
-## Backend
-```powershell
-cd backend
-Copy-Item .env.example .env
-npm install
-npm run dev
-```
-Backend: `http://localhost:4000`
 
-## Frontend
-In a second terminal:
-```powershell
-cd frontend
-Copy-Item .env.example .env
-npm install
-npm run dev
-```
-Frontend: `http://localhost:5173`
-
-## Connecting a real AI model
-Set these three values in `backend/.env`. Both **native Anthropic (Claude)** and **OpenAI-compatible** chat-completions endpoints are supported automatically — detected from the URL / model name, no extra config needed:
-
-```env
-# Anthropic (native)
-LLM_API_URL=https://api.anthropic.com/v1/messages
-LLM_MODEL=claude-sonnet-4-5-20250929
-LLM_API_KEY=sk-ant-...
-
-# or OpenAI
-LLM_API_URL=https://api.openai.com/v1/chat/completions
-LLM_MODEL=gpt-4o
-LLM_API_KEY=sk-...
-```
-
-Without a key configured, the app still runs (chats, tasks, uploads, auth all work) but answers fall back to raw extracted text instead of full AI analysis — configure the key above for real, in-depth responses.
 
 ## Document analysis quality
 Uploads are optional. When relevant files exist:
